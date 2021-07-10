@@ -9,10 +9,16 @@ A simple Windows console app that will toggle "mute" and "unmute" when Zoom is r
 - [Version History](#version-history)
 - [Acknowledgments](#acknowledgments)
 
+## Project Goals
+* The app can toggle mute/un-mute during Zoom meetings regardless of whether or not the Window has focus.
+* The app should always bring the Zoom Window to the forefront (top-most). This makes it natural to find the window and re-engage in the conversation.
+* The app should return focus to the last application being used. This makes it easy to continue typing in a Google Doc, for example.
+* The app can be mapped to some shortcut and run without additional input (e.g. keyboard shortcut).
+
 ## Getting Started
 
 ### Notice
-* Zoom will not obey shortcuts the first time you join a meeting. You must be sure you've un-muted at least once, manually.
+* It seems like this might be a bug in Zoom: the keyboard shortcuts for muting/un-muting (e.g. `Spacebar`, or `Alt + A`) do not work until you've clicked the button with your mouse first.
 
 ### Dependencies
 
@@ -24,10 +30,12 @@ A simple Windows console app that will toggle "mute" and "unmute" when Zoom is r
 * Map the executable to some trigger (e.g. keyboard shortcut)
 
 ## Version History
-
+* 1.1.0
+  * After Zoom is muted, the calling application receives focus again
 * 1.0.0
-    * Initial Release
+  * Initial Release
 
 ## Acknowledgments
 
 * Lots of Google searches
+{"mode":"full","isActive":false}

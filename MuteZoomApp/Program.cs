@@ -3,16 +3,24 @@ using System.Collections.Generic;
 using System.Threading.Tasks;
 using WindowsInput;
 using WindowsInput.Native;
+using Wrappers.MuteZoomApp;
 
 namespace MuteZoomApp
 {
     class Program
     {
         static async Task Main(string[] args)
+        {          
+            Console.WriteLine("Hello World!");
+
+            FindZoomWindowAndMute();
+
+            LastWindowHandler.SetLastWindowActive();
+        }
+
+        private static void FindZoomWindowAndMute()
         {
             const string ZOOM_MEETING_WINDOW_TITLE = "Zoom Meeting";
-
-            Console.WriteLine("Hello World!");
 
             foreach (KeyValuePair<IntPtr, string> window in OpenWindowGetter.GetOpenWindows())
             {
@@ -21,27 +29,21 @@ namespace MuteZoomApp
 
                 if (title.ToLower().Contains(ZOOM_MEETING_WINDOW_TITLE.ToLower()))
                 {
-                    FocusOnZoomWindow(handle);
+                    // Before sending inputs, you must bring the Window to the foreground. This has the
+                    // added benefit of always quickly being able to find the Zoom window.
+                    BringWindowToFrontAndActivate(handle);
 
                     SendToggleMuteKeyboardShortcut();
                 }
             }
         }
 
-        /// <summary>
-        /// Before sending inputs, you must bring the Window to the foreground. This has the 
-        /// added benefit of always quickly being able to find the Zoom window.
-        /// </summary>
-        /// <param name="handle"></param>
-        private static void FocusOnZoomWindow(IntPtr handle)
+        private static void BringWindowToFrontAndActivate(IntPtr handle)
         {
             OpenWindowGetter.SetForegroundWindow(handle);
             OpenWindowGetter.SetActiveWindow(handle);
         }
 
-        /// <summary>
-        /// Shortcut to toggle mute/un-mute in Zoom is Alt + A
-        /// </summary>
         private static void SendToggleMuteKeyboardShortcut()
         {
             var inputSim = new InputSimulator();

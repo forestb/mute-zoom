@@ -4,7 +4,7 @@ using System.Runtime.InteropServices;
 using System.Text;
 using HWND = System.IntPtr;
 
-namespace MuteZoomApp
+namespace Wrappers.MuteZoomApp
 {
     /// <summary>Contains functionality to get all the open windows.</summary>
     public static class OpenWindowGetter
@@ -50,24 +50,24 @@ namespace MuteZoomApp
         private static extern bool IsWindowVisible(HWND hWnd);
 
         [DllImport("USER32.DLL")]
-        private static extern IntPtr GetShellWindow();
+        private static extern HWND GetShellWindow();
 
         [DllImport("USER32.DLL")]
-        public static extern IntPtr SetActiveWindow(IntPtr hWnd);
+        public static extern HWND SetActiveWindow(HWND hWnd);
 
         [DllImport("USER32.DLL")]
-        static extern IntPtr FindWindow(string lpClassName, string lpWindowName);
+        static extern HWND FindWindow(string lpClassName, string lpWindowName);
 
         [DllImport("USER32.DLL")]
-        public static extern bool SetForegroundWindow(IntPtr hWnd);
+        public static extern bool SetForegroundWindow(HWND hWnd);
 
         [DllImport("USER32.DLL")]
-        public static extern int SendMessage(IntPtr hWnd, int wMsg, uint wParam, int lParam);
+        public static extern int SendMessage(HWND hWnd, int wMsg, uint wParam, int lParam);
 
         [DllImport("USER32.DLL")]
-        public static extern bool PostMessage(IntPtr hWnd, int wMsg, uint wParam, uint lParam);
+        public static extern bool PostMessage(HWND hWnd, int wMsg, uint wParam, uint lParam);
 
-        //[DllImport("USER32.DLL")]
-        //public static extern uint SendInput(uint numberOfInputs, INPUT[] inputs, int sizeOfInputStructure);
+        [DllImport("USER32.DLL")]
+        public static extern HWND GetActiveWindow();
     }
 }
